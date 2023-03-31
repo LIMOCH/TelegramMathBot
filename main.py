@@ -1,7 +1,7 @@
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, filters
 import math
-TOKEN = '5836886917:AAFCzT6SGLfY9Q34xWnvi03l7Ad25fOxrJI'  # вставьте свой токен
+TOKEN = 'token'  # вставьте свой токен
 
 
 def start(update, context):
