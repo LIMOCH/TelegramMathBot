@@ -69,7 +69,7 @@ def circle(update, context):
 def stepen(update, context):
     try:
         num = int(context.args[0])
-        sp = int(context.args[0])
+        sp = int(context.args[1])
         result = num ** sp
         update.message.reply_text(f'число {num} в степени {sp} = {result}')
     except (IndexError, ValueError):
@@ -77,7 +77,7 @@ def stepen(update, context):
 def plus(update, context):
     try:
         a = int(context.args[0])
-        b = int(context.args[0])
+        b = int(context.args[1])
         result = a + b
         update.message.reply_text(f'число {a} + {b} = {result}')
     except(IndexError, ValueError):
@@ -85,7 +85,7 @@ def plus(update, context):
 def minus(update, context):
     try:
         a = int(context.args[0])
-        b = int(context.args[0])
+        b = int(context.args[1])
         result = a - b
         update.message.reply_text(f'число {a} - {b} = {result}')
     except:
@@ -93,7 +93,7 @@ def minus(update, context):
 def multiply(update, context):
    try:
        a = int(context.args[0])
-       b = int(context.args[0])
+       b = int(context.args[1])
        result = a * b
        update.message.reply_text(f'число {a} * {b} = {result}')
    except:
@@ -103,7 +103,7 @@ def multiply(update, context):
 def sq_sum(update, context):
     try:
         a = int(context.args[0])
-        b = int(context.args[0])
+        b = int(context.args[1])
         result = (a + b) ** 2
         update.message.reply_text(f'число {a} * {b} = {result}')
     except:
@@ -111,7 +111,7 @@ def sq_sum(update, context):
 def sq_raz(update, context):
     try:
         a = int(context.args[0])
-        b = int(context.args[0])
+        b = int(context.args[1])
         result = (a - b) ** 2
         update.message.reply_text(f'число {a} * {b} = {result}')
     except:
@@ -119,8 +119,41 @@ def sq_raz(update, context):
 def difference_of_sq(update, context):
     try:
         a = int(context.args[0])
-        b = int(context.args[0])
+        b = int(context.args[1])
         result = (a + b) * (a - b)
+        update.message.reply_text(f'число {a} * {b} = {result}')
+    except:
+        update.message.reply_text('Error')
+
+def cube_sum(update, context):
+    try:
+        a = int(context.args[0])
+        b = int(context.args[1])
+        result = a + b
+        update.message.reply_text(f'число {a} * {b} = {result}')
+    except:
+        update.message.reply_text('Error')
+def cube_raz(update, context):
+    try:
+        a = int(context.args[0])
+        b = int(context.args[1])
+        result = (a - b) ** 3
+        update.message.reply_text(f'число {a} * {b} = {result}')
+    except:
+        update.message.reply_text('Error')
+def sum_of_cube(update, context):
+    try:
+        a = int(context.args[0])
+        b = int(context.args[1])
+        result = a + b5
+        update.message.reply_text(f'число {a} * {b} = {result}')
+    except:
+        update.message.reply_text('Error')
+def raz_of_cube(update, context):
+    try:
+        a = int(context.args[0])
+        b = int(context.args[1])
+        result = a ** 3 - b ** 3 
         update.message.reply_text(f'число {a} * {b} = {result}')
     except:
         update.message.reply_text('Error')
@@ -133,20 +166,24 @@ def main():
     dp.add_handler(CommandHandler('start', start))
     dp.add_handler(CommandHandler('help', help))
 
-    dp.add_handler(CommandHandler('square', perimeter))
-    dp.add_handler(CommandHandler('volume', volume))
-    dp.add_handler(CommandHandler('rectangle', rectangle))
-    dp.add_handler(CommandHandler('spherevolume', spherevolume))
-    dp.add_handler(CommandHandler('circle', circle))
+    dp.add_handler(CommandHandler('square', perimeter))#Периметр
+    dp.add_handler(CommandHandler('volume', volume))#обьём
+    dp.add_handler(CommandHandler('rectangle', rectangle))#обьём паралелипипида
+    dp.add_handler(CommandHandler('spherevolume', spherevolume))#обьём сферы
+    dp.add_handler(CommandHandler('circle', circle))#площадь круга
     
-    dp.add_handler(CommandHandler('stepen', stepen))
-    dp.add_handler(CommandHandler('plus', plus))
-    dp.add_handler(CommandHandler('minus', minus))
-    dp.add_handler(CommandHandler('multiply', multiply))
+    dp.add_handler(CommandHandler('stepen', stepen))#возвести в степень
+    dp.add_handler(CommandHandler('plus', plus))#плюс
+    dp.add_handler(CommandHandler('minus', minus))#минус
+    dp.add_handler(CommandHandler('multiply', multiply))#умножить
 
-    dp.add_handler(CommandHandler('sq_sum', sq_sum))
-    dp.add_handler(CommandHandler('sq_min', sq_raz))
-    dp.add_handler(CommandHandler('sq_dif', difference_of_sq))
+    dp.add_handler(CommandHandler('sq_sum', sq_sum))#Квадрат суммы
+    dp.add_handler(CommandHandler('sq_min', sq_raz))#Квадрат разности
+    dp.add_handler(CommandHandler('sq_dif', difference_of_sq))#Разность квадратов
+    dp.add_handler(CommandHandler('cube_sum', cube_sum))#Куб суммы
+    dp.add_handler(CommandHandler('cube_raz', cube_raz))#Куб разности
+    dp.add_handler(CommandHandler('sum_of_cube', sum_of_cube))#Сумма кубов
+    dp.add_handler(CommandHandler('raz_of_cube', raz_of_cube))#Разность кубов
     updater.start_polling()
     updater.idle()
 
