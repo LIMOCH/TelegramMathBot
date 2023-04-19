@@ -168,7 +168,7 @@ def difference_of_sq(update, context):
 def densitys(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления плотности плотности фигуры скопируйте команду и через пробел введите значение массы, пробел и значение радиуса: /densitys < Масса > < Радиус >")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления плотности плотности фигуры скопируйте команду и через пробел введите значение массы, пробел и значение радиуса: /densitys < Масса > < Объём >")
         return
     try:
         mass = float(context.args[0])
