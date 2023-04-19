@@ -2,20 +2,20 @@ import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, filters
 import math
 from telegram import KeyboardButton, ReplyKeyboardMarkup
-TOKEN = 'token'  # вставьте свой токен
+TOKEN = '5836886917:AAFCzT6SGLfY9Q34xWnvi03l7Ad25fOxrJI'  # вставьте свой токен
 
 def start(update, context):
-    update.message.reply_text('Здравствуйте! Я бот-калькулятор. Я могу помочь найти периметр квадрата, его площадь и объем куба. Введите /help для списка команд.')
+    update.message.reply_text('Здравствуйте! Я бот-калькулятор и могу Вам помочь с вычислениями: найти периметр квадрата, его площадь, объем куба, разность квадратов, квадрат разности и прочие. \nДля помощи нажмите сюда -> /help.')
 
 
 def help(update, context):
-    update.message.reply_text('Что бы воспользоваться функциями вводите данные так: /команда <первое число> <второе число>. Некоторые функции требуют всего 1 число\n\n/square - найти периметр квадрата\n/volume - найти объем куба\n/rectangle - найти периметр, площадь прямоугольника\n/spherevolume - найти объём сферы\n/circle - найти площадь круга\n/densitys - найти пплотность фигуры\n------------\n/stepen - возвести в степень\n/plus - сложить 2 числа\n/minus - разность 2 чисел\n/multiply - умножить 2 числа\n-------------\n/sq_sum - Квадрат суммы\n/sq_min - Квадрат разности\n/sq_dif - Разность квадратов\n/cube_sum - Куб суммы\n/cube_raz - Куб разности\n/sum_cube - Сумма кубов\n/raz_cube - Разность кубов')
+    update.message.reply_text('Для вычислений нужно ввести: \n /команда <первое число> <второе число> (через пробел). \n Для подсказки по каждой задачe, нажмите на нужную команду из списка. \n\nВычисления для геометрических фигур: \n/square - найти периметр квадрата\n/volume - найти объем куба\n/rectangle - найти периметр и площадь прямоугольника\n/spherevolume - найти объём сферы\n/circle - найти площадь круга\n/densitys - найти плотность фигуры\n------------\nДействия с числами: \n/stepen - возвести число в степень\n/plus – сложить 2 числа\n/minus – найти разность 2-х чисел\n/multiply – умножить 2 числа\n-------------\nФормулы сокращенного умножения: \n/sq_sum – Квадрат суммы (a + b)^2 \n/sq_min - Квадрат разности (a - b)^2 \n/sq_dif - Разность квадратов a^2 - b^2 \n/cube_sum - Куб суммы ( a + b )^3 \n/cube_raz - Куб разности ( a − b )^3 \n/sum_cube - Сумма кубов a^3 + b^3 \n/raz_cube - Разность кубов a^3 - b^3')
 
 #----геометрические--задачи-----
 def perimeter(update, context):
     args = context.args
     if len(args) < 1 or len(args) > 1:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для данной операции требуеться только 1 число")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления периметра и площади квадрата скопируйте команду и через пробел введите длину одной стороны квадрата: /square <число равное длине 1 стороны квадрата>")
         return
     try:
         side = float(context.args[0])
@@ -23,11 +23,11 @@ def perimeter(update, context):
         s = side ** 2
         update.message.reply_text(f'Периметр квадрата со стороной {side} = {p}\nПлощадь квадрата со стороной {side} = {s}')
     except (IndexError, ValueError):
-        update.message.reply_text('Вы ввели неверные значения, попробуйте /perimeter <1 число>')
+        update.message.reply_text('Вы ввели неверные значения, попробуйте /square <число равное длине 1 стороны квадрата>')
 def rectangle(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для данной операции требуеться 2 числа \n1.Длинна 2.Ширина")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления периметра и площади прямоугольника скопируйте команду и через пробел введите длину одной стороны прямоугольника, затем через пробел введите длину другой стороны прямоугольника: /rectangle <1 число> <2 число>")
         return
     try:
         length = float(args[0])
@@ -44,7 +44,7 @@ def rectangle(update, context):
 def volume(update, context):
     args = context.args
     if len(args) < 1 or len(args) > 1:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для данной операции требуеться 1 число - длинна 1 стороны куба")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления объема куба скопируйте команду и через пробел введите длину стороны куба: /volume <1 число>")
         return
     try:
         side = float(context.args[0])
@@ -55,7 +55,7 @@ def volume(update, context):
 def spherevolume(update, context):
     args = context.args
     if len(args) < 1 or len(args) > 1:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения объёма сферы требуеться 1 число - радиус")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления объёма сферы скопируйте команду и через пробел введите длину радиуса: /spherevolume <1 число>")
         return
     try:
         r = float(context.args[0])
@@ -66,7 +66,7 @@ def spherevolume(update, context):
 def circle(update, context):
     args = context.args
     if len(args) < 1 or len(args) > 1:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения площади круга требуеться 1 число - радиус")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления площади круга скопируйте команду и через пробел введите длину радиуса: /circle <1 число>")
         return
     try:
         pi = math.pi
@@ -82,7 +82,7 @@ def circle(update, context):
 def stepen(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения степени требуеться 2 числа\n1.Число 2.Степень")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления степени скопируйте команду и через пробел введите число, пробел и значение степень: /stepen <число – возводимое в степень> <значение степени>")
         return
     try:
         num = int(context.args[0])
@@ -90,11 +90,11 @@ def stepen(update, context):
         result = num ** sp
         update.message.reply_text(f'число {num} в степени {sp} = {result}')
     except (IndexError, ValueError):
-        update.message.reply_text('Вы ввели неверные значения, попробуйте /stepen <1 число> <2 число>')
+        update.message.reply_text('Вы ввели неверные значения, попробуйте /stepen <<число – возводимое в степень> <значение степени>')
 def plus(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения суммы слагаемых требуеться 2 числа\n1.Первое слагаемое 2.Второе слагаемое")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления суммы слагаемых скопируйте команду и через пробел введите первое слагаемое, пробел и второе слагаемое: /plus <1 число> <2 число>")
         return
     try:
         a = int(context.args[0])
@@ -106,7 +106,7 @@ def plus(update, context):
 def minus(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения разности чисел требуеться 2 числа\n1.Уменьшаемое 2.Вычитаемое")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления разности чисел скопируйте команду и через пробел введите Уменьшаемое число, пробел и Вычитаемое число: /minus <1 число> <2 число>")
         return
     try:
         a = int(context.args[0])
@@ -118,7 +118,7 @@ def minus(update, context):
 def multiply(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения произведеня чисел требуеться 2 числа\n1.Первый множитель 2.Второй множитель")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления произведения 2х чисел скопируйте команду и через пробел введите первое число, пробел и второе число: /multiply <1 число> <2 число>")
         return
     try: 
         a = int(context.args[0])
@@ -132,7 +132,7 @@ def multiply(update, context):
 def sq_sum(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения квадрата суммы требуеться 2 числа\n1.Число 2.Число")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления квадрата суммы (a + b)^2 скопируйте команду и через пробел введите число a, пробел и число b: /sq_sum <число а> <число b >")
         return
     try:
         a = int(context.args[0])
@@ -140,11 +140,11 @@ def sq_sum(update, context):
         result = (a + b) ** 2
         update.message.reply_text(f'({a} + {b})^2 = {a}^2 + 2 * {a}*{b} + {b}^2  = {result}')
     except:
-        update.message.reply_text('Вы ввели неверные значения, попробуйте /sq_sum <1 число> <2 число>')
+        update.message.reply_text('Вы ввели неверные значения, попробуйте /sq_sum <число а> < число b >')
 def sq_raz(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения квадрата разности требуеться 2 числа\n1.Число 2.Число")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления квадрата разности (a - b)^2 скопируйте команду и через пробел введите число a, пробел и число b: /sq_raz <число а> <число b>")
         return
     try:
         a = int(context.args[0])
@@ -152,11 +152,11 @@ def sq_raz(update, context):
         result = (a - b) ** 2
         update.message.reply_text(f'({a} - {b})^2 = {a}^2 - 2 * {a}*{b} + {b}^2 = {result}')
     except:
-        update.message.reply_text('Вы ввели неверные значения, попробуйте /sq_raz <1 число> <2 число>')
+        update.message.reply_text('Вы ввели неверные значения, попробуйте /sq_min <число а> <число b >')
 def difference_of_sq(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения разности квадратов требуеться 2 числа\n1.Число 2.Число")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления разности квадратов a^2 - b^2 скопируйте команду и через пробел введите число a, пробел и число b: /sq_dif <число а> <число b >")
         return
     try:
         a = int(context.args[0])
@@ -164,11 +164,11 @@ def difference_of_sq(update, context):
         result = (a + b) * (a - b)
         update.message.reply_text(f'({a} + {b})({a} - {b}) = {a}^2 - {b}^2 =  {result}')
     except:
-        update.message.reply_text('Вы ввели неверные значения, попробуйте /difference_of_sq <1 число> <2 число>')
+        update.message.reply_text('Вы ввели неверные значения, попробуйте /sq_dif <число а> <число b >')
 def densitys(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения плотности фигуры требуеться 2 числа\n1.Масса 2.Радиус")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для вычисления плотности плотности фигуры скопируйте команду и через пробел введите значение массы, пробел и значение радиуса: /densitys < Масса > < Радиус >")
         return
     try:
         mass = float(context.args[0])
@@ -177,24 +177,24 @@ def densitys(update, context):
         update.message.reply_text(f"Плотность фигуры с массой {mass} и радиусом {volume} = {density}")
         pass
     except (IndexError, ValueError):
-        update.message.reply_text("Вы ввели неверные значения, попробуйте /density <1 число> <2 число>")
+        update.message.reply_text("Вы ввели неверные значения, попробуйте /densitys < Масса > < Радиус >")
 
 def cube_sum(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения куба суммы требуеться 2 числа\n1.Число 2.Число")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения куба суммы ( a + b )^3 скопируйте команду и через пробел введите число a, пробел и число b: /cube_sum <число а> <число b >")
         return
     try:
         a = int(context.args[0])
         b = int(context.args[1])
-        result = a + b
+        result = (a + b) ** 3
         update.message.reply_text(f'({a} + {b})^3 = {a}^3 + 3*{a}^2 * {b} + 3 * {a} * {b}^2 + {b}^4 = {result}')
     except:
-        update.message.reply_text('Вы ввели неверные значения, попробуйте /cube_sum <1 число> <2 число>')
+        update.message.reply_text('Вы ввели неверные значения, попробуйте /cube_sum <число а> <число b >')
 def cube_raz(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения куба разности требуеться 2 числа\n1.Число 2.Число")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения куба разности ( a − b )^3 скопируйте команду и через пробел введите число a, пробел и число b: /cube_raz <число а> <число b >")
         return
     try:
         a = int(context.args[0])
@@ -202,11 +202,11 @@ def cube_raz(update, context):
         result = (a - b) ** 3
         update.message.reply_text(f'({a} - {b})^3 = {a}^3 + 3*{a}^2 * {b} + 3 * {a} * {b}^2 - {b}^4 = {result}')
     except:
-        update.message.reply_text('Вы ввели неверные значения, попробуйте /cube_raz <1 число> <2 число>')
+        update.message.reply_text('Вы ввели неверные значения, попробуйте /cube_raz <число а> <число b >')
 def sum_cube(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения суммы кубов требуеться 2 числа\n1.Число 2.Число")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения суммы кубов a^3 + b^3 скопируйте команду и через пробел введите число a, пробел и число b: /sum_cube <число а> <число b >")
         return
     try:
         a = int(context.args[0])
@@ -214,11 +214,11 @@ def sum_cube(update, context):
         result = a ** 3 + b** 3
         update.message.reply_text(f'{a}^3 + {b}^3 = ({a} + {b})({a}^2 - {a}*{b} + {b}^2) =  {result}')
     except:
-        update.message.reply_text('Вы ввели неверные значения, попробуйте /sum_cube <1 число> <2 число>')
+        update.message.reply_text('Вы ввели неверные значения, попробуйте /sum_cube <число а> <число b >')
 def raz_cube(update, context):
     args = context.args
     if len(args) != 2:
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения суммы кубов требуеться 2 числа\n1.Число 2.Число")
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Для нахождения разности кубов a^3 - b^3 скопируйте команду и через пробел введите число a, пробел и число b: /raz_cube <число а> <число b >")
         return
     try:
         a = int(context.args[0])
@@ -226,7 +226,7 @@ def raz_cube(update, context):
         result = a ** 3 - b ** 3 
         update.message.reply_text(f'{a}^3 - {b}^3 = ({a} + {b})({a}^2 + {a}*{b} + {b}^2) = {result}')
     except:
-        update.message.reply_text('Вы ввели неверные значения, попробуйте /raz_cube <1 число> <2 число>')
+        update.message.reply_text('Вы ввели неверные значения, попробуйте /raz_cube <число а> <число b >')
 
 
 
